@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
   Eye,
@@ -36,6 +36,8 @@ import {
   Percent,
   CalendarCheck,
   CircleSlash,
+  Bot,
+  PlayCircle,
 } from 'lucide-react'
 import { Reveal } from '../components/ui'
 import flatlay from '../assets/basket-flatlay.jpg'
@@ -57,40 +59,217 @@ function useParallax(ref, from, to) {
 
 /* ---------------------------------- Hero --------------------------------- */
 
-function BasketCard() {
-  const rows = [
-    { label: 'Course Fee', value: '₹1,00,000' },
-    { label: 'Hostel', value: '₹30,000' },
-    { label: 'Books', value: '₹10,000' },
-    { label: 'Allowance', value: 'Capped' },
-  ]
-  return (
-    <div className="w-full max-w-sm rounded-3xl border border-white/10 bg-white/[0.07] p-6 shadow-2xl backdrop-blur-xl">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orbit-500/30">
-            <ShoppingBasket className="h-4.5 w-4.5 text-orbit-300" />
-          </div>
-          <span className="text-sm font-semibold text-white/90">Education Basket</span>
+// The platform's surface area, as a student actually meets it. The hero shows
+// the breadth by cycling through it rather than claiming it in a sentence.
+const modules = [
+  {
+    key: 'ai',
+    label: 'AI study buddy',
+    icon: Bot,
+    meta: 'every subject · 24/7',
+    body: (
+      <div className="space-y-2.5">
+        <div className="ml-auto max-w-[82%] rounded-2xl rounded-br-md bg-orbit-600 px-3.5 py-2.5 text-[13px] font-medium leading-relaxed text-white">
+          Explain Bayes’ theorem like I’m in a hurry
         </div>
-        <span className="rounded-full bg-mint-500/20 px-2.5 py-1 text-[11px] font-bold text-mint-400">
-          Approved
-        </span>
+        <div className="max-w-[90%] rounded-2xl rounded-bl-md bg-white/[0.07] px-3.5 py-2.5 text-[13px] leading-relaxed text-white/75">
+          It’s belief-updating. Start with what you assumed, weigh it by how well the new
+          evidence fits, normalise. Want the exam-style derivation next?
+        </div>
+        <div className="flex items-center gap-2 pt-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-mint-400" />
+          <span className="font-mono text-[10px] text-white/40">
+            answered in 1.2s · from your syllabus
+          </span>
+        </div>
       </div>
-      <p className="mt-5 text-[13px] font-medium text-white/50">Total this year</p>
-      <p className="text-4xl font-extrabold tracking-tight text-white">₹1,52,000</p>
-      <div className="mt-5 space-y-3">
-        {rows.map((r, i) => (
-          <motion.div
-            key={r.label}
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.9 + i * 0.15 }}
-            className="flex items-center justify-between rounded-xl bg-white/[0.06] px-4 py-2.5"
+    ),
+  },
+  {
+    key: 'fees',
+    label: 'Fees & financing',
+    icon: Wallet,
+    meta: 'one EMI',
+    body: (
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
+          Sanctioned credit line
+        </p>
+        <p className="mt-1 font-mono text-2xl font-semibold tracking-tight text-white">₹4,00,000</p>
+        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full w-[38%] rounded-full bg-gradient-to-r from-orbit-500 to-orbit-300" />
+        </div>
+        <div className="mt-4 space-y-2">
+          {[
+            ['Institute', '15 Aug', '₹50,000'],
+            ['Hostel', '1 Aug', '₹8,000'],
+          ].map(([who, when, amt]) => (
+            <div key={who} className="flex items-center gap-3 text-[13px]">
+              <span className="flex-1 font-semibold text-white/90">{who}</span>
+              <span className="font-mono text-[10px] text-white/35">{when}</span>
+              <span className="font-mono text-white/90">{amt}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between rounded-xl bg-white/[0.06] px-3.5 py-2.5">
+          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">
+            One EMI · auto-debit 5th
+          </span>
+          <span className="font-mono text-[13px] font-semibold text-white">₹12,400</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    key: 'courses',
+    label: 'Courses',
+    icon: PlayCircle,
+    meta: '3 active',
+    body: (
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
+          Enrolled · stream or download
+        </p>
+        <div className="mt-3.5 space-y-3.5">
+          {[
+            ['Data structures in Java', 68],
+            ['Spoken English · advanced', 41],
+            ['UPSC prelims crash course', 12],
+          ].map(([name, pct]) => (
+            <div key={name}>
+              <div className="flex justify-between text-[12px]">
+                <span className="font-semibold text-white/90">{name}</span>
+                <span className="font-mono text-[10px] text-white/40">{pct}%</span>
+              </div>
+              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-orbit-400" style={{ width: `${pct}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 font-mono text-[10px] text-white/35">
+          Added to the basket · financed with the fees
+        </p>
+      </div>
+    ),
+  },
+  {
+    key: 'deals',
+    label: 'ID & deals',
+    icon: IdCard,
+    meta: 'verified',
+    body: (
+      <div>
+        <div className="flex items-center gap-2.5 rounded-xl bg-mint-500/10 px-3.5 py-3">
+          <IdCard className="h-4 w-4 shrink-0 text-mint-400" />
+          <span className="text-[12px] font-semibold text-white/85">Student ID verified</span>
+          <span className="ml-auto font-mono text-[10px] text-mint-400">active</span>
+        </div>
+        <div className="mt-3 space-y-2">
+          {[
+            ['Campus café', '15% off'],
+            ['Stationery & print', '20% off'],
+            ['Bus pass top-up', '₹120 back'],
+          ].map(([who, offer]) => (
+            <div key={who} className="flex items-center justify-between rounded-xl bg-white/[0.05] px-3.5 py-2.5">
+              <span className="text-[12px] font-medium text-white/80">{who}</span>
+              <span className="font-mono text-[11px] font-semibold text-orbit-300">{offer}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3.5 font-mono text-[10px] text-white/35">12 more within 2 km of campus</p>
+      </div>
+    ),
+  },
+  {
+    key: 'career',
+    label: 'Career',
+    icon: Compass,
+    meta: '1:1 booked',
+    body: (
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
+          Next session
+        </p>
+        <div className="mt-3 rounded-xl border border-orbit-500/30 bg-orbit-600/10 px-4 py-3.5">
+          <p className="text-[13px] font-bold text-white">Choosing between M.Tech and a job</p>
+          <p className="mt-1 font-mono text-[10px] text-white/45">Friday · 5:30 pm · 45 min</p>
+        </div>
+        <div className="mt-3 space-y-2">
+          {[
+            ['Psychometric assessment', 'complete'],
+            ['Résumé review', '2 slots open'],
+          ].map(([what, state]) => (
+            <div key={what} className="flex items-center justify-between rounded-xl bg-white/[0.05] px-3.5 py-2.5">
+              <span className="text-[12px] font-medium text-white/80">{what}</span>
+              <span className="font-mono text-[10px] text-white/40">{state}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+]
+
+function ModuleDeck() {
+  const reduce = useReducedMotion()
+  const [active, setActive] = useState(0)
+  const [held, setHeld] = useState(false)
+
+  useEffect(() => {
+    if (reduce || held) return
+    const id = setInterval(() => setActive((a) => (a + 1) % modules.length), 3800)
+    return () => clearInterval(id)
+  }, [reduce, held])
+
+  return (
+    <div
+      className="w-full max-w-md"
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+    >
+      {/* top-[76px] leaves room for the four cards behind to stack upward */}
+      <div className="relative h-[430px]">
+        {modules.map((m, i) => {
+          const offset = (i - active + modules.length) % modules.length
+          return (
+            <motion.div
+              key={m.key}
+              className="absolute inset-x-0 top-[76px] rounded-3xl border border-white/10 bg-ink-soft/85 p-5 shadow-[0_30px_70px_-25px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+              style={{ zIndex: modules.length - offset }}
+              animate={{
+                y: offset * -19,
+                scale: 1 - offset * 0.038,
+                opacity: offset > 3 ? 0 : 1 - offset * 0.16,
+              }}
+              transition={{ duration: 0.55, ease: [0.21, 0.65, 0.36, 1] }}
+            >
+              <div className="mb-4 flex items-center gap-2.5 border-b border-white/[0.07] pb-3.5">
+                <m.icon className="h-4 w-4 shrink-0 text-orbit-300" />
+                <span className="text-[13px] font-bold text-white">{m.label}</span>
+                <span className="ml-auto font-mono text-[10px] text-white/35">{m.meta}</span>
+              </div>
+              {m.body}
+            </motion.div>
+          )
+        })}
+      </div>
+
+      {/* the deck's index — also the plainest statement of what's on the platform */}
+      <div className="mt-6 flex flex-wrap gap-x-1 gap-y-1.5">
+        {modules.map((m, i) => (
+          <button
+            key={m.key}
+            onClick={() => setActive(i)}
+            aria-current={i === active}
+            className={`rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
+              i === active
+                ? 'bg-white/10 text-orbit-200'
+                : 'text-white/35 hover:bg-white/5 hover:text-white/60'
+            }`}
           >
-            <span className="text-sm text-white/70">{r.label}</span>
-            <span className="text-sm font-bold text-white">{r.value}</span>
-          </motion.div>
+            {m.label}
+          </button>
         ))}
       </div>
     </div>
@@ -100,86 +279,69 @@ function BasketCard() {
 function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  // Parallax: layers drift at different speeds as the hero scrolls away.
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 120])
-  const yCard = useTransform(scrollYProgress, [0, 1], [0, -140])
-  const yGlow = useTransform(scrollYProgress, [0, 1], [0, 220])
-  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
+  const reduce = useReducedMotion()
+  const yText = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 90])
+  const yDeck = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -110])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden bg-ink">
-      {/* drifting background glows */}
-      <motion.div style={{ y: yGlow }} className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 h-[560px] w-[820px] -translate-x-1/2 rounded-full bg-orbit-600/30 blur-[140px]" />
-        <div className="absolute right-[-160px] top-1/3 h-[420px] w-[420px] rounded-full bg-fuchsia-600/20 blur-[120px]" />
-        <div className="absolute bottom-[-120px] left-[-120px] h-[380px] w-[380px] rounded-full bg-cyan-500/15 blur-[110px]" />
-      </motion.div>
+      <div className="pointer-events-none absolute inset-0">
+        {/* one light source, not three — the deck carries the visual weight */}
+        <div className="absolute right-[4%] top-[6%] h-[720px] w-[720px] rounded-full bg-orbit-700/25 blur-[170px]" />
+        {/* ruled grid: this is an operating system, not a marketing gradient */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)',
+            backgroundSize: '76px 76px',
+            maskImage: 'radial-gradient(ellipse 85% 65% at 45% 40%, #000 35%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 85% 65% at 45% 40%, #000 35%, transparent 100%)',
+          }}
+        />
+      </div>
 
-      {/* orbit rings */}
-      <motion.svg
-        style={{ y: yCard, opacity }}
-        viewBox="0 0 600 600"
-        className="pointer-events-none absolute -right-40 top-24 hidden h-[620px] w-[620px] lg:block"
-      >
-        {[280, 220, 160].map((r, i) => (
-          <circle
-            key={r}
-            cx="300"
-            cy="300"
-            r={r}
-            fill="none"
-            stroke="rgba(129,140,248,0.18)"
-            strokeWidth="1.5"
-            strokeDasharray={i === 1 ? '6 10' : 'none'}
-          />
-        ))}
-        <circle cx="300" cy="20" r="7" fill="#818cf8" />
-        <circle cx="80" cy="300" r="5" fill="#34d399" />
-        <circle cx="460" cy="300" r="4" fill="#f0abfc" />
-      </motion.svg>
-
-      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-16 px-4 pb-24 pt-32 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-x-16 gap-y-14 px-4 pb-28 pt-32 sm:px-6 lg:grid-cols-[1.08fr_1fr] lg:px-8">
         <motion.div style={{ y: yText, opacity }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[13px] font-semibold text-orbit-300"
+            className="font-mono text-xs uppercase tracking-[0.22em] text-orbit-300"
           >
-            <Sparkles className="h-3.5 w-3.5" />
-            India's first student financial operating system
-          </motion.div>
+            Student OS · built for India
+          </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-6 text-5xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            transition={{ duration: 0.7, delay: 0.08 }}
+            className="mt-6 text-5xl font-black leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl"
           >
-            One Student.
+            Everything college
             <br />
-            One Platform.
+            asks for.
             <br />
-            <span className="bg-gradient-to-r from-orbit-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-              Every Education Expense.
-            </span>
+            <span className="text-orbit-300">One login.</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="mt-6 max-w-lg text-lg leading-relaxed text-white/60"
+            transition={{ duration: 0.7, delay: 0.22 }}
+            className="mt-7 max-w-xl text-lg leading-relaxed text-white/60"
           >
-            Course fees, hostel, books, allowances and financing — consolidated into one
-            integrated ecosystem. One platform, one journey, one ecosystem for every
-            student ambition.
+            Fees and financing, hostel and mess, online courses, an AI study buddy, student
+            deals and career guidance. One place for the whole of student life — instead of a
+            dozen apps and five separate due dates.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.36 }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
             <a
@@ -199,26 +361,29 @@ function Hero() {
         </motion.div>
 
         <motion.div
-          style={{ y: yCard, opacity }}
-          initial={{ opacity: 0, y: 40, rotate: 2 }}
-          animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          style={{ y: yDeck, opacity }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
           className="flex justify-center lg:justify-end"
         >
-          <BasketCard />
+          <ModuleDeck />
         </motion.div>
       </div>
 
-      {/* scroll cue */}
       <motion.div
         style={{ opacity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 1.8 }}
+        className="absolute bottom-9 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2.5 sm:flex"
       >
-        <div className="h-9 w-5 rounded-full border-2 border-white/25 p-1">
-          <div className="mx-auto h-2 w-1 rounded-full bg-white/50" />
-        </div>
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">
+          Scroll
+        </span>
+        <motion.span
+          className="h-8 w-px bg-gradient-to-b from-white/40 to-transparent"
+          style={{ transformOrigin: 'top' }}
+          animate={reduce ? undefined : { scaleY: [0.3, 1, 0.3] }}
+          transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+        />
       </motion.div>
     </section>
   )
