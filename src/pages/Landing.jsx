@@ -320,11 +320,11 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.08 }}
             className="mt-6 text-5xl font-black leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl"
           >
-            Everything college
+            Students
             <br />
-            asks for.
+            Life
             <br />
-            <span className="text-orbit-300">One login.</span>
+            <span className="text-orbit-300">Simplified.</span>
           </motion.h1>
 
           <motion.p
