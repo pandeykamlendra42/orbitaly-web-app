@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingBasket, Menu, X } from 'lucide-react'
 import { useBasket } from '../context/BasketContext'
+import Logo from './Logo'
 import { SHOW_PROTOTYPE } from '../config'
 
 const links = SHOW_PROTOTYPE
@@ -12,20 +13,6 @@ const links = SHOW_PROTOTYPE
       { to: '/eligibility', label: 'Eligibility' },
     ]
   : []
-
-function Logo({ dark }) {
-  return (
-    <Link to="/" className="flex items-center gap-2">
-      <svg viewBox="0 0 100 100" className="h-8 w-8">
-        <circle cx="50" cy="50" r="42" fill="none" stroke={dark ? '#fff' : '#4f46e5'} strokeWidth="9" />
-        <circle cx="50" cy="50" r="16" fill={dark ? '#fff' : '#4f46e5'} />
-      </svg>
-      <span className={`text-xl font-extrabold tracking-tight ${dark ? 'text-white' : 'text-ink'}`}>
-        Orbitaly<span className="align-super text-[10px] font-semibold opacity-60">™</span>
-      </span>
-    </Link>
-  )
-}
 
 export default function Navbar() {
   const { items } = useBasket()
@@ -54,7 +41,9 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo dark={onDarkHero} />
+        <Link to="/" aria-label="Orbitaly home">
+          <Logo dark={onDarkHero} />
+        </Link>
 
         <div className="hidden items-center gap-1 md:flex">
           {links.map((l) => (

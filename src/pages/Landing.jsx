@@ -63,6 +63,42 @@ function useParallax(ref, from, to) {
 // the breadth by cycling through it rather than claiming it in a sentence.
 const modules = [
   {
+    key: 'fees',
+    label: 'Fees & financing',
+    icon: Wallet,
+    meta: 'one EMI',
+    body: (
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
+          Sanctioned credit line
+        </p>
+        <p className="mt-1 font-mono text-2xl font-semibold tracking-tight text-white">₹4,00,000</p>
+        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full w-[38%] rounded-full bg-gradient-to-r from-orbit-500 to-orbit-300" />
+        </div>
+        <div className="mt-4 space-y-2">
+          {[
+            ['Institute', '15 Aug', '₹50,000'],
+            ['Hostel', '1 Aug', '₹8,000'],
+            ['Transport', '10 Aug', '₹9,000'],
+          ].map(([who, when, amt]) => (
+            <div key={who} className="flex items-center gap-3 text-[13px]">
+              <span className="flex-1 font-semibold text-white/90">{who}</span>
+              <span className="font-mono text-[10px] text-white/35">{when}</span>
+              <span className="font-mono text-white/90">{amt}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between rounded-xl bg-white/[0.06] px-3.5 py-2.5">
+          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">
+            One EMI · auto-debit 5th
+          </span>
+          <span className="font-mono text-[13px] font-semibold text-white">₹12,400</span>
+        </div>
+      </div>
+    ),
+  },
+   {
     key: 'ai',
     label: 'AI study buddy',
     icon: Bot,
@@ -81,41 +117,6 @@ const modules = [
           <span className="font-mono text-[10px] text-white/40">
             answered in 1.2s · from your syllabus
           </span>
-        </div>
-      </div>
-    ),
-  },
-  {
-    key: 'fees',
-    label: 'Fees & financing',
-    icon: Wallet,
-    meta: 'one EMI',
-    body: (
-      <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
-          Sanctioned credit line
-        </p>
-        <p className="mt-1 font-mono text-2xl font-semibold tracking-tight text-white">₹4,00,000</p>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full w-[38%] rounded-full bg-gradient-to-r from-orbit-500 to-orbit-300" />
-        </div>
-        <div className="mt-4 space-y-2">
-          {[
-            ['Institute', '15 Aug', '₹50,000'],
-            ['Hostel', '1 Aug', '₹8,000'],
-          ].map(([who, when, amt]) => (
-            <div key={who} className="flex items-center gap-3 text-[13px]">
-              <span className="flex-1 font-semibold text-white/90">{who}</span>
-              <span className="font-mono text-[10px] text-white/35">{when}</span>
-              <span className="font-mono text-white/90">{amt}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex items-center justify-between rounded-xl bg-white/[0.06] px-3.5 py-2.5">
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">
-            One EMI · auto-debit 5th
-          </span>
-          <span className="font-mono text-[13px] font-semibold text-white">₹12,400</span>
         </div>
       </div>
     ),
@@ -320,11 +321,11 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.08 }}
             className="mt-6 text-5xl font-black leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl"
           >
-            Students
+            Every Student.
             <br />
-            Life
+            Every Need.
             <br />
-            <span className="text-orbit-300">Simplified.</span>
+            <span className="text-orbit-300">One Platform</span>
           </motion.h1>
 
           <motion.p

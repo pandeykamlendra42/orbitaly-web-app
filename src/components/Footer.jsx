@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SHOW_PROTOTYPE } from '../config'
+import Logo from './Logo'
 
 const platformCol = {
   title: 'Platform',
@@ -40,13 +41,7 @@ export default function Footer() {
           }`}
         >
           <div>
-            <div className="flex items-center gap-2">
-              <svg viewBox="0 0 100 100" className="h-8 w-8">
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#818cf8" strokeWidth="9" />
-                <circle cx="50" cy="50" r="16" fill="#818cf8" />
-              </svg>
-              <span className="text-xl font-extrabold tracking-tight">Orbitaly™</span>
-            </div>
+            <Logo dark variant="lockup" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
               One Student. One Platform. Every Education Expense. India's first student
               financial operating system.
