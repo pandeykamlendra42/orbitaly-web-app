@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/api/survey/v1/auth/:path*",
+      "destination": "https://uat.customerjourney.flyhifinance.com/api/survey/v1/auth/:path*"
+    },
+    {
+      "source": "/api/survey/v1/surveys/:path*",
+      "destination": "https://uat.customerjourney.flyhifinance.com/api/survey/v1/surveys/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
