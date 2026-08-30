@@ -5,6 +5,7 @@ import { BasketProvider } from './context/BasketContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Landing from './pages/Landing'
+import { SURVEY_ROUTES } from './modules/survey/routes'
 
 // `__SHOW_PROTOTYPE__` is a build-time literal, so on the public build these
 // ternaries collapse to `null` and the dynamic imports become unreachable —
@@ -14,6 +15,11 @@ const InstituteDetails = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Institu
 const Basket = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Basket')) : null
 const Eligibility = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Eligibility')) : null
 
+// The survey is a self-contained module with its own chrome, and it ships on the
+// public build — the college cohort needs to reach it directly. Lazy so its
+// questionnaire JSON stays out of the landing-page bundle.
+const SurveyPage = lazy(() => import('./modules/survey/SurveyPage'))
+
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
@@ -22,15 +28,26 @@ function ScrollToTop() {
   return null
 }
 
+// The survey carries its own progress header and submit bar; the marketing nav
+// and footer would only offer ways to abandon it half-answered.
+function MarketingChrome({ children }) {
+  const { pathname } = useLocation()
+  if (SURVEY_ROUTES.includes(pathname)) return null
+  return children
+}
+
 export default function App() {
   return (
     <BasketProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <Navbar />
+        <MarketingChrome>
+          <Navbar />
+        </MarketingChrome>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/student-survey-v1" element={<SurveyPage />} />
             {__SHOW_PROTOTYPE__ && (
               <>
                 <Route path="/marketplace" element={<Marketplace />} />
@@ -43,7 +60,9 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
-        <Footer />
+        <MarketingChrome>
+          <Footer />
+        </MarketingChrome>
       </BrowserRouter>
     </BasketProvider>
   )

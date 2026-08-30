@@ -1,0 +1,624 @@
+{
+  "id": "student-survey-v1",
+  "version": 1,
+  "title": "Student Discovery Survey",
+  "tagline": "Help us build an app you'd actually use.",
+  "intro": "This isn't a sales pitch — we want honest opinions, even critical ones. Your answers are used only to decide what we build first.",
+  "estimatedMinutes": "8–10",
+  "auth": {
+    "mode": "phone-otp",
+    "collectEmail": true,
+    "emailVerified": false,
+    "consentText": "I agree to Orbitaly contacting me about this research."
+  },
+  "completion": {
+    "headline": "That's everything. Thank you.",
+    "body": "Your answers go straight to the team deciding what Orbitaly builds first. If we run a follow-up session at your college, we'll reach out on the number you verified."
+  },
+  "sections": [
+    {
+      "id": "about-you",
+      "letter": "A",
+      "title": "About You",
+      "description": "Five quick ones so we can slice the results properly.",
+      "questions": [
+        {
+          "id": "q1_age",
+          "number": 1,
+          "type": "single",
+          "text": "How old are you?",
+          "options": [
+            { "value": "under_16", "label": "Under 16" },
+            { "value": "16_18", "label": "16–18" },
+            { "value": "19_21", "label": "19–21" },
+            { "value": "22_24", "label": "22–24" },
+            { "value": "24_plus", "label": "24+" }
+          ]
+        },
+        {
+          "id": "q2_stage",
+          "number": 2,
+          "type": "single",
+          "text": "What stage are you at right now?",
+          "options": [
+            { "value": "school", "label": "School" },
+            { "value": "ug_entrance_prep", "label": "Preparing for UG entrance" },
+            { "value": "undergraduate", "label": "Undergraduate" },
+            { "value": "pg_entrance_prep", "label": "Preparing for PG entrance" },
+            { "value": "postgraduate", "label": "Postgraduate" },
+            { "value": "overseas_aspirant", "label": "Overseas aspirant" },
+            { "value": "recent_graduate", "label": "Recent graduate" },
+            { "value": "working_0_3", "label": "Working (0–3 years)" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q3_field",
+          "number": 3,
+          "type": "single",
+          "text": "What field are you in or studying?",
+          "options": [
+            { "value": "engineering_tech", "label": "Engineering / Tech" },
+            { "value": "management_business", "label": "Management / Business" },
+            { "value": "arts_humanities", "label": "Arts / Humanities" },
+            { "value": "science_research", "label": "Science / Research" },
+            { "value": "commerce_finance", "label": "Commerce / Finance" },
+            { "value": "medicine_healthcare", "label": "Medicine / Healthcare" },
+            { "value": "law", "label": "Law" },
+            { "value": "govt_exam_prep", "label": "Government exam prep" },
+            { "value": "vocational", "label": "Vocational / Professional" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q4_abroad",
+          "number": 4,
+          "type": "single",
+          "text": "Are you considering education outside India?",
+          "options": [
+            { "value": "actively_looking", "label": "Actively looking" },
+            { "value": "already_abroad", "label": "Already studying abroad" },
+            { "value": "maybe", "label": "Maybe / open to it" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "id": "q5_funding_source",
+          "number": 5,
+          "type": "single",
+          "text": "Who funds most of your education / monthly expenses?",
+          "options": [
+            { "value": "me", "label": "Me" },
+            { "value": "me_parents", "label": "Me + parents" },
+            { "value": "mostly_family", "label": "Mostly family" },
+            { "value": "scholarship_sponsor", "label": "Scholarship / sponsor / employer" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "your-problems",
+      "letter": "B",
+      "title": "Your Problems",
+      "description": "Before we show you anything about Orbitaly — what's actually hard right now?",
+      "questions": [
+        {
+          "id": "q6_hardest",
+          "number": 6,
+          "type": "multi",
+          "text": "Pick the things that are hardest for you right now.",
+          "helpText": "Choose up to 5.",
+          "maxSelections": 5,
+          "options": [
+            { "value": "knowing_strengths", "label": "Knowing my strengths" },
+            { "value": "choosing_career", "label": "Choosing a career" },
+            { "value": "choosing_course_college", "label": "Choosing a course/college" },
+            { "value": "india_vs_abroad", "label": "India vs. abroad" },
+            { "value": "admissions_prep", "label": "Admissions / entrance prep" },
+            { "value": "internships_jobs", "label": "Finding internships / jobs" },
+            { "value": "cost_of_education", "label": "Cost of education" },
+            { "value": "managing_money", "label": "Managing money" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q7_most_stressful",
+          "number": 7,
+          "type": "single",
+          "text": "Out of those, which ONE stresses you out the most?",
+          "optionsFrom": "q6_hardest",
+          "optionsFromEmptyHint": "Answer question 6 first — this list is built from what you picked there."
+        },
+        {
+          "id": "q8_spent_on",
+          "number": 8,
+          "type": "multi",
+          "text": "In the last 6 months, what have you actually spent time or money on?",
+          "options": [
+            { "value": "career_counselling", "label": "Career counselling" },
+            { "value": "aptitude_test", "label": "Aptitude / psychometric test" },
+            { "value": "course_college_research", "label": "Course or college research" },
+            { "value": "coaching_resources", "label": "Coaching / learning resources" },
+            { "value": "internship_job_search", "label": "Internship or job search" },
+            { "value": "education_financing", "label": "Education financing" },
+            { "value": "budgeting", "label": "Budgeting / managing money" },
+            { "value": "none", "label": "None of these", "exclusive": true }
+          ]
+        },
+        {
+          "id": "q9_current_solutions",
+          "number": 9,
+          "type": "multi",
+          "text": "How do you currently solve these problems?",
+          "options": [
+            { "value": "parents", "label": "Parents" },
+            { "value": "friends", "label": "Friends" },
+            { "value": "youtube_social", "label": "YouTube / social media" },
+            { "value": "myself", "label": "Figuring it out myself" },
+            { "value": "career_counsellor", "label": "Career counsellor" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q10_unsolved",
+          "number": 10,
+          "type": "single",
+          "text": "What's the one thing existing resources just don't solve well for you?",
+          "options": [
+            { "value": "not_personalized", "label": "Not personalized to me" },
+            { "value": "too_generic", "label": "Too generic / one-size-fits-all" },
+            { "value": "not_one_place", "label": "Doesn't combine everything I need in one place" },
+            { "value": "confusing", "label": "Confusing / hard to use" },
+            { "value": "untrustworthy", "label": "Feels untrustworthy" },
+            { "value": "too_pushy", "label": "Too pushy / sales-focused" },
+            { "value": "not_india_specific", "label": "Not enough India-specific information" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orbitaly-features",
+      "letter": "C",
+      "title": "Guidance & Experts",
+      "description": "Now the part where we describe what we're thinking of building.",
+      "questions": [
+        {
+          "id": "q11_differentiator",
+          "number": 11,
+          "type": "single",
+          "text": "What would make Orbitaly genuinely different from resources you already use?",
+          "options": [
+            { "value": "personalized_recs", "label": "Personalized recommendations" },
+            { "value": "everything_one_place", "label": "Everything in one place" },
+            { "value": "human_experts", "label": "Access to real human experts" },
+            { "value": "financial_tools", "label": "Financial planning tools" },
+            { "value": "transparent_incentives", "label": "Honest / transparent about incentives" },
+            { "value": "better_job_matching", "label": "Better job / internship matching" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q12_valuable_tools",
+          "number": 12,
+          "type": "multi",
+          "text": "Pick your most valuable tools.",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "options": [
+            { "value": "future_fit_test", "label": "Future Fit strength/personality test" },
+            { "value": "career_roadmap", "label": "Career roadmap" },
+            { "value": "course_recommendations", "label": "Course recommendations" },
+            { "value": "college_comparisons", "label": "College comparisons" },
+            { "value": "india_vs_overseas", "label": "India-vs-overseas guidance" },
+            { "value": "skill_gap_checker", "label": "Skill gap checker" },
+            { "value": "learning_roadmap", "label": "Learning roadmap" },
+            { "value": "expert_counselling", "label": "Expert counselling" },
+            { "value": "cost_journey_planner", "label": "Total cost / journey planner" },
+            { "value": "scholarship_info", "label": "Scholarship info" },
+            { "value": "funding_help", "label": "Funding help" }
+          ]
+        },
+        {
+          "id": "q13_would_take_quiz",
+          "number": 13,
+          "type": "single",
+          "text": "Would you complete a free 3–5 minute \"what fits me\" quiz?",
+          "options": [
+            { "value": "definitely", "label": "Definitely" },
+            { "value": "probably", "label": "Probably" },
+            { "value": "unsure", "label": "Unsure" },
+            { "value": "probably_not", "label": "Probably not" },
+            { "value": "definitely_not", "label": "Definitely not" }
+          ]
+        },
+        {
+          "id": "q14_quiz_result",
+          "number": 14,
+          "type": "single",
+          "text": "What result from that quiz would matter most to you?",
+          "options": [
+            { "value": "career_matches", "label": "Career matches" },
+            { "value": "my_strengths", "label": "My strengths" },
+            { "value": "my_skill_gaps", "label": "My skill gaps" },
+            { "value": "course_suggestions", "label": "Course suggestions" },
+            { "value": "college_suggestions", "label": "College suggestions" },
+            { "value": "earning_opportunities", "label": "Earning opportunities" },
+            { "value": "clear_next_steps", "label": "Clear next steps" }
+          ]
+        },
+        {
+          "id": "q15_trust_recommendation",
+          "number": 15,
+          "type": "multi",
+          "text": "What would make you trust a career recommendation?",
+          "options": [
+            { "value": "methodology", "label": "The methodology behind it" },
+            { "value": "expert_validation", "label": "Expert validation" },
+            { "value": "job_market_data", "label": "Real job-market data" },
+            { "value": "past_outcomes", "label": "Outcomes from past students" },
+            { "value": "clear_explanation", "label": "A clear explanation" },
+            { "value": "compare_options", "label": "Being able to compare options" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q16_find_counsellor",
+          "number": 16,
+          "type": "single",
+          "text": "If you needed a counsellor today, how would you find one?",
+          "options": [
+            { "value": "school_college", "label": "School / college" },
+            { "value": "agent", "label": "An agent" },
+            { "value": "friends_family", "label": "Friends / family" },
+            { "value": "google_social", "label": "Google / social media" },
+            { "value": "counselling_company", "label": "A counselling company" },
+            { "value": "wouldnt_know", "label": "I wouldn't know where to start" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q17_abroad_priorities",
+          "number": 17,
+          "type": "multi",
+          "text": "For studying abroad, pick your top priorities.",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "visibleIf": { "question": "q4_abroad", "notIn": ["no"] },
+          "options": [
+            { "value": "choosing_country", "label": "Choosing a country" },
+            { "value": "choosing_course", "label": "Choosing a course" },
+            { "value": "shortlisting_universities", "label": "Shortlisting universities" },
+            { "value": "career_outlook", "label": "Career / job-market outlook" },
+            { "value": "applications_sop", "label": "Applications & essays / SOP" },
+            { "value": "scholarships", "label": "Scholarships" },
+            { "value": "visa_paperwork", "label": "Visa paperwork" },
+            { "value": "cost_planning", "label": "Cost planning" },
+            { "value": "funding", "label": "Funding" },
+            { "value": "accommodation", "label": "Accommodation / relocation" }
+          ]
+        },
+        {
+          "id": "q18_trust_counsellor",
+          "number": 18,
+          "type": "multi",
+          "text": "What would make you trust a counsellor?",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "options": [
+            { "value": "verified_credentials", "label": "Verified credentials" },
+            { "value": "reviews", "label": "Reviews" },
+            { "value": "specialization", "label": "Specialization in my country/course" },
+            { "value": "transparent_fees", "label": "Transparent fees" },
+            { "value": "proven_outcomes", "label": "Proven outcomes" },
+            { "value": "commission_honesty", "label": "Honesty about commissions/university relationships" },
+            { "value": "compare_counsellors", "label": "Ability to compare counsellors" },
+            { "value": "match_explanation", "label": "Clear explanation of why they were matched to me" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "money-and-funding",
+      "letter": "D",
+      "title": "Money & Funding",
+      "description": "The part most people find hardest to talk about — and most useful for us.",
+      "questions": [
+        {
+          "id": "q19_pay_for_consultation",
+          "number": 19,
+          "type": "single",
+          "text": "Would you pay for a high-quality expert consultation?",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "maybe", "label": "Maybe" },
+            { "value": "only_bundled", "label": "Only if bundled with something else" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "id": "q20_major_expense",
+          "number": 20,
+          "type": "single",
+          "text": "Are you likely to have a major education/upskilling expense in the next 24 months?",
+          "options": [
+            { "value": "yes", "label": "Yes" },
+            { "value": "maybe", "label": "Maybe" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "id": "q21_costs",
+          "number": 21,
+          "type": "multi",
+          "text": "Which costs apply to you?",
+          "options": [
+            { "value": "tuition", "label": "Tuition" },
+            { "value": "coaching", "label": "Coaching" },
+            { "value": "hostel_pg", "label": "Hostel / PG" },
+            { "value": "transport", "label": "Transport" },
+            { "value": "laptop_books", "label": "Laptop / books" },
+            { "value": "visa", "label": "Visa" },
+            { "value": "flights_relocation", "label": "Flights / relocation" },
+            { "value": "daily_living", "label": "Daily living costs" },
+            { "value": "family_expenses", "label": "Other family expenses" },
+            { "value": "none", "label": "None", "exclusive": true }
+          ]
+        },
+        {
+          "id": "q22_cost_tool_usefulness",
+          "number": 22,
+          "type": "scale",
+          "text": "How useful would a free tool be that shows your total education cost and funding gap?",
+          "scale": { "min": 1, "max": 5, "minLabel": "Not useful", "maxLabel": "Extremely useful" }
+        },
+        {
+          "id": "q23_first_action",
+          "number": 23,
+          "type": "single",
+          "text": "What would you want to do first?",
+          "options": [
+            { "value": "plan_cost", "label": "Plan my education cost" },
+            { "value": "check_funding_gap", "label": "Check my funding gap" },
+            { "value": "explore_funding", "label": "Explore funding options" },
+            { "value": "talk_to_adviser", "label": "Talk to an adviser" },
+            { "value": "none", "label": "None of these" }
+          ]
+        },
+        {
+          "id": "q24_loan_priorities",
+          "number": 24,
+          "type": "multi",
+          "text": "If you needed a loan, what matters most?",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "options": [
+            { "value": "total_interest", "label": "Total interest / cost" },
+            { "value": "loan_amount", "label": "Loan amount" },
+            { "value": "approval_speed", "label": "Speed of approval" },
+            { "value": "paperwork", "label": "Paperwork required" },
+            { "value": "flexibility", "label": "Flexibility in use" },
+            { "value": "repayment_tenure", "label": "Repayment tenure" },
+            { "value": "trusted_lender", "label": "A trusted lender" },
+            { "value": "fully_digital", "label": "A fully digital process" },
+            { "value": "beyond_tuition", "label": "Covers more than just tuition" },
+            { "value": "human_support", "label": "Human support along the way" }
+          ]
+        },
+        {
+          "id": "q25_loan_worries",
+          "number": 25,
+          "type": "multi",
+          "text": "What worries you about education loans?",
+          "options": [
+            { "value": "sales_pitch", "label": "Feels like a sales pitch" },
+            { "value": "privacy", "label": "Privacy concerns" },
+            { "value": "sales_calls", "label": "Too many sales calls" },
+            { "value": "unclear_lender", "label": "Unclear lender identity" },
+            { "value": "hidden_charges", "label": "Hidden charges" },
+            { "value": "repayment_stress", "label": "Repayment stress" },
+            { "value": "sharing_documents", "label": "Sharing documents" },
+            { "value": "none", "label": "None of these", "exclusive": true },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "earning-and-skills",
+      "letter": "E",
+      "title": "Earning & Skills",
+      "description": "Work, internships and the gap between you and them.",
+      "questions": [
+        {
+          "id": "q26_tried_earning",
+          "number": 26,
+          "type": "single",
+          "text": "Have you tried to earn money while studying or right after graduating?",
+          "options": [
+            { "value": "yes_worked", "label": "Yes, and it worked" },
+            { "value": "tried_no_fit", "label": "Tried but couldn't find the right fit" },
+            { "value": "planning_to", "label": "Planning to" },
+            { "value": "not_interested", "label": "Not interested" }
+          ]
+        },
+        {
+          "id": "q27_earning_types",
+          "number": 27,
+          "type": "multi",
+          "text": "Which types of earning opportunities interest you?",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "options": [
+            { "value": "internships", "label": "Internships" },
+            { "value": "paid_projects", "label": "Paid projects" },
+            { "value": "freelance", "label": "Freelance work" },
+            { "value": "part_time", "label": "Part-time jobs" },
+            { "value": "remote", "label": "Remote work" },
+            { "value": "apprenticeships", "label": "Apprenticeships" },
+            { "value": "on_campus", "label": "On-campus jobs" },
+            { "value": "full_time_entry", "label": "Full-time entry-level jobs" },
+            { "value": "content_creator", "label": "Content-creator type gigs" }
+          ]
+        },
+        {
+          "id": "q28_earning_obstacle",
+          "number": 28,
+          "type": "single",
+          "text": "What's your biggest obstacle to earning?",
+          "options": [
+            { "value": "where_to_look", "label": "Not knowing where to look" },
+            { "value": "lack_experience", "label": "Lack of experience" },
+            { "value": "skill_gaps", "label": "Skill gaps" },
+            { "value": "weak_cv", "label": "Weak CV / portfolio" },
+            { "value": "interview_nerves", "label": "Interview nerves" },
+            { "value": "time_constraints", "label": "Time / schedule constraints" },
+            { "value": "location", "label": "Location" },
+            { "value": "no_right_fit", "label": "Not finding the right fit" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q29_fit_tool_usefulness",
+          "number": 29,
+          "type": "scale",
+          "text": "How useful would a tool be that explains WHY a role fits you and what skill is missing?",
+          "scale": { "min": 1, "max": 5, "minLabel": "Not useful", "maxLabel": "Extremely useful" }
+        }
+      ]
+    },
+    {
+      "id": "perks-and-payments",
+      "letter": "F",
+      "title": "Perks & Payments",
+      "description": "Day-to-day money, rewards, and whether any of it matters to you.",
+      "questions": [
+        {
+          "id": "q30_rewards_engagement",
+          "number": 30,
+          "type": "single",
+          "text": "Would student discounts/rewards make you open the app more often?",
+          "options": [
+            { "value": "definitely", "label": "Definitely" },
+            { "value": "probably", "label": "Probably" },
+            { "value": "unsure", "label": "Unsure" },
+            { "value": "probably_not", "label": "Probably not" },
+            { "value": "definitely_not", "label": "Definitely not" }
+          ]
+        },
+        {
+          "id": "q31_perks",
+          "number": 31,
+          "type": "multi",
+          "text": "Which perks would you want?",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
+          "options": [
+            { "value": "events_concerts", "label": "Events / concerts" },
+            { "value": "food", "label": "Food" },
+            { "value": "electronics", "label": "Electronics" },
+            { "value": "books_learning", "label": "Books / learning" },
+            { "value": "travel", "label": "Travel" },
+            { "value": "accommodation", "label": "Accommodation" },
+            { "value": "fashion", "label": "Fashion" },
+            { "value": "streaming_music", "label": "Streaming / music" },
+            { "value": "productivity_tools", "label": "Productivity tools" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q32_student_card",
+          "number": 32,
+          "type": "single",
+          "text": "Would you want a student debit card/account where parents can set limits, track spending, and earn rewards?",
+          "options": [
+            { "value": "definitely", "label": "Definitely" },
+            { "value": "probably", "label": "Probably" },
+            { "value": "unsure", "label": "Unsure" },
+            { "value": "probably_not", "label": "Probably not" },
+            { "value": "definitely_not", "label": "Definitely not" }
+          ]
+        },
+        {
+          "id": "q33_card_control",
+          "number": 33,
+          "type": "single",
+          "text": "Who should be in control of it?",
+          "visibleIf": { "question": "q32_student_card", "notIn": ["definitely_not"] },
+          "options": [
+            { "value": "student", "label": "The student" },
+            { "value": "parent", "label": "The parent" },
+            { "value": "shared", "label": "Shared control" },
+            { "value": "depends_on_age", "label": "Depends on age" },
+            { "value": "wouldnt_use", "label": "I wouldn't use it" }
+          ]
+        },
+        {
+          "id": "q34_payment_priority",
+          "number": 34,
+          "type": "single",
+          "text": "What matters most in a payment feature?",
+          "visibleIf": { "question": "q32_student_card", "notIn": ["definitely_not"] },
+          "options": [
+            { "value": "spending_limits", "label": "Spending limits" },
+            { "value": "category_controls", "label": "Category controls" },
+            { "value": "spending_tracking", "label": "Spending tracking" },
+            { "value": "rewards", "label": "Rewards" },
+            { "value": "parent_transfers", "label": "Parent transfers" },
+            { "value": "security", "label": "Security" },
+            { "value": "acceptance", "label": "Where it's accepted" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "priorities",
+      "letter": "G",
+      "title": "What We Build First",
+      "description": "Last three. These decide our roadmap, so pick honestly.",
+      "questions": [
+        {
+          "id": "q35_signup_trigger",
+          "number": 35,
+          "type": "single",
+          "text": "Which single free tool would actually make you create an account with Orbitaly?",
+          "options": [
+            { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
+            { "value": "cost_funding_planner", "label": "Cost / funding planner" },
+            { "value": "expert_matching", "label": "Expert matching" },
+            { "value": "job_matching", "label": "Job / internship matching" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q36_must_be_excellent",
+          "number": 36,
+          "type": "single",
+          "text": "Which ONE Orbitaly feature has to work exceptionally well before you'd pay for it?",
+          "options": [
+            { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
+            { "value": "cost_funding_planner", "label": "Cost / funding planner" },
+            { "value": "expert_matching", "label": "Expert matching" },
+            { "value": "job_matching", "label": "Job / internship matching" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        },
+        {
+          "id": "q37_launch_one",
+          "number": 37,
+          "type": "single",
+          "text": "If Orbitaly could launch only ONE feature, what should it be?",
+          "options": [
+            { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
+            { "value": "cost_planner", "label": "Education journey / cost planner" },
+            { "value": "expert_matching", "label": "Expert matching" },
+            { "value": "job_matching", "label": "Job / internship matching" },
+            { "value": "financial_fitness", "label": "Financial fitness tools" },
+            { "value": "other", "label": "Other", "allowsText": true }
+          ]
+        }
+      ]
+    }
+  ]
+}
