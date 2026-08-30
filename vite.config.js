@@ -15,6 +15,7 @@ export default defineConfig(() => {
       __SHOW_PROTOTYPE__: JSON.stringify(showPrototype),
     },
     server: {
+      allowedHosts: ['.ngrok-free.app', '.orbitaly.in', 'orbitaly.in', 'orbitalyos.com', '.orbitalyos.com', 'localhost'],
       // The survey API lives on another port in development. Proxying keeps the
       // browser same-origin, so no CORS configuration is needed on the backend
       // and cookies/auth headers behave the same as they will in production.
