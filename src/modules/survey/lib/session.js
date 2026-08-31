@@ -11,41 +11,13 @@
  * The token is a hint about what to render; the server decides what's true.
  */
 
+// JWT reading lives in src/lib/jwt.js — the admin dashboard reads the LOS token
+// the same way, and neither module should own the other's copy.
+import { isTokenExpired } from '../../../lib/jwt'
+
+export { decodeJwt, isTokenExpired, millisUntilExpiry } from '../../../lib/jwt'
+
 const STORAGE_KEY = 'orbitaly.survey.session'
-
-/**
- * Treat a token as expired slightly early, so one that dies mid-flight doesn't
- * come back as a confusing 401 on submit.
- */
-const CLOCK_SKEW_SECONDS = 30
-
-function base64UrlDecode(segment) {
-  const padded = segment.padEnd(segment.length + ((4 - (segment.length % 4)) % 4), '=')
-  return atob(padded.replace(/-/g, '+').replace(/_/g, '/'))
-}
-
-/** Returns the JWT payload, or null if the token is missing or malformed. */
-export function decodeJwt(token) {
-  if (typeof token !== 'string') return null
-  const parts = token.split('.')
-  if (parts.length !== 3) return null
-  try {
-    return JSON.parse(base64UrlDecode(parts[1]))
-  } catch {
-    return null
-  }
-}
-
-/** Milliseconds until the token expires; 0 once it has (or if it's unreadable). */
-export function millisUntilExpiry(token) {
-  const exp = decodeJwt(token)?.exp
-  if (typeof exp !== 'number') return 0
-  return Math.max(0, exp * 1000 - CLOCK_SKEW_SECONDS * 1000 - Date.now())
-}
-
-export function isTokenExpired(token) {
-  return millisUntilExpiry(token) <= 0
-}
 
 /**
  * The stored session, or null when there isn't a usable one. An expired or

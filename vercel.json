@@ -10,8 +10,18 @@
       "destination": "https://uat.customerjourney.flyhifinance.com/api/survey/v1/surveys/:path*"
     },
     {
+      "source": "/api/survey/v1/admin/:path*",
+      "destination": "https://uat.customerjourney.flyhifinance.com/api/survey/v1/admin/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/survey-analytics",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
     }
   ]
 }

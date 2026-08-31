@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Landing from './pages/Landing'
 import { SURVEY_ROUTES } from './modules/survey/routes'
+import { SURVEY_ADMIN_ROUTES } from './modules/survey-admin/routes'
 
 // `__SHOW_PROTOTYPE__` is a build-time literal, so on the public build these
 // ternaries collapse to `null` and the dynamic imports become unreachable —
@@ -20,6 +21,10 @@ const Eligibility = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Eligibility'
 // questionnaire JSON stays out of the landing-page bundle.
 const SurveyPage = lazy(() => import('./modules/survey/SurveyPage'))
 
+// Internal analytics over the read-only admin API. Lazy for the same reason,
+// and because no public visitor should ever download it.
+const SurveyAdminPage = lazy(() => import('./modules/survey-admin/AdminPage'))
+
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
@@ -30,9 +35,11 @@ function ScrollToTop() {
 
 // The survey carries its own progress header and submit bar; the marketing nav
 // and footer would only offer ways to abandon it half-answered.
+const CHROMELESS_ROUTES = [...SURVEY_ROUTES, ...SURVEY_ADMIN_ROUTES]
+
 function MarketingChrome({ children }) {
   const { pathname } = useLocation()
-  if (SURVEY_ROUTES.includes(pathname)) return null
+  if (CHROMELESS_ROUTES.includes(pathname)) return null
   return children
 }
 
@@ -48,6 +55,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/student-survey-v1" element={<SurveyPage />} />
+            <Route path="/survey-analytics" element={<SurveyAdminPage />} />
             {__SHOW_PROTOTYPE__ && (
               <>
                 <Route path="/marketplace" element={<Marketplace />} />

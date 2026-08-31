@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(() => {
   const showPrototype = process.env.VITE_SHOW_PROTOTYPE === 'true'
-  const apiTarget = process.env.VITE_SURVEY_API_PROXY_TARGET ?? 'https://uat.customerjourney.flyhifinance.com'
+  const apiTarget = process.env.VITE_SURVEY_API_PROXY_TARGET ?? 'http://localhost:8080'
 
   return {
     plugins: [react(), tailwindcss()],
