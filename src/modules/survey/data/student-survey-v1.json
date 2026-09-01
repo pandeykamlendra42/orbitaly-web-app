@@ -581,8 +581,8 @@
         {
           "id": "q35_signup_trigger",
           "number": 35,
-          "type": "single",
-          "text": "Which single free tool would actually make you create an account with Orbitaly?",
+          "type": "multi",
+          "text": "Which free tools would actually make you create an account with Orbitaly?",
           "options": [
             { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
             { "value": "cost_funding_planner", "label": "Cost / funding planner" },
@@ -607,8 +607,8 @@
         {
           "id": "q37_launch_one",
           "number": 37,
-          "type": "single",
-          "text": "If Orbitaly could launch only ONE feature, what should it be?",
+          "type": "multi",
+          "text": "If Orbitaly could launch only a subset of features initially, what they should be?",
           "options": [
             { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
             { "value": "cost_planner", "label": "Education journey / cost planner" },
