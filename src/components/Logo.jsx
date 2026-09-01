@@ -30,6 +30,7 @@ export default function Logo({ dark, variant = 'mark', className }) {
         className={`font-display text-xl font-bold tracking-tight ${dark ? 'text-white' : 'text-ink'}`}
       >
         Orbitaly
+        <span className="align-super text-[10px] font-semibold opacity-60">™</span>
       </span>
     </span>
   )
