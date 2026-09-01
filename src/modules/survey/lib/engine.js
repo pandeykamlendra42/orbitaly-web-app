@@ -127,8 +127,22 @@ export function validateSection(section, answers, texts, survey) {
  * ("None of these" clears the rest, and picking anything else clears it) and
  * the pick-N cap (a click past the cap is ignored — the UI disables it anyway).
  */
+/**
+ * Read a stored answer as a multi-select value.
+ *
+ * A question can change from `single` to `multi` between published versions —
+ * q35 and q37 did exactly that in v2 — and a draft saved against the older
+ * version still holds a bare string. Without this, every array operation below
+ * throws on those drafts, and `includes()` on a string silently does substring
+ * matching. The previous single answer is kept as the first selection.
+ */
+export function asMulti(current) {
+  if (Array.isArray(current)) return current
+  return current === null || current === undefined || current === '' ? [] : [current]
+}
+
 export function toggleMulti(question, options, current, optionValue) {
-  const selected = current ?? []
+  const selected = asMulti(current)
   const option = options.find((o) => o.value === optionValue)
 
   if (selected.includes(optionValue)) {
@@ -151,7 +165,7 @@ export function toggleMulti(question, options, current, optionValue) {
 export function isOptionCapped(question, current, optionValue) {
   const max = question.maxSelections
   if (!max || question.type !== 'multi') return false
-  const selected = current ?? []
+  const selected = asMulti(current)
   return selected.length >= max && !selected.includes(optionValue)
 }
 

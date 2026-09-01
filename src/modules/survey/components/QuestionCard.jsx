@@ -1,5 +1,5 @@
 import { OptionButton, OtherText, ScaleControl } from './controls'
-import { isOptionCapped, resolveOptions, toggleMulti } from '../lib/engine'
+import { asMulti, isOptionCapped, resolveOptions, toggleMulti } from '../lib/engine'
 
 /** Short labels tile two-up on wider screens; long ones stay a single column. */
 function useColumns(options) {
@@ -11,7 +11,7 @@ export default function QuestionCard({ question, survey, answers, texts, error, 
   const value = answers[question.id]
   const options = resolveOptions(question, answers, survey)
   const isMulti = question.type === 'multi'
-  const selected = isMulti ? (value ?? []) : []
+  const selected = isMulti ? asMulti(value) : []
 
   const typeLabel = isMulti
     ? question.maxSelections

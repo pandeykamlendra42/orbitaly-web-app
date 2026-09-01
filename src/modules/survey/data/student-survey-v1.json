@@ -1,6 +1,6 @@
 {
   "id": "student-survey-v1",
-  "version": 1,
+  "version": 2,
   "title": "Student Discovery Survey",
   "tagline": "Help us build an app you'd actually use.",
   "intro": "This isn't a sales pitch — we want honest opinions, even critical ones. Your answers are used only to decide what we build first.",
@@ -582,6 +582,8 @@
           "id": "q35_signup_trigger",
           "number": 35,
           "type": "multi",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
           "text": "Which free tools would actually make you create an account with Orbitaly?",
           "options": [
             { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
@@ -608,6 +610,8 @@
           "id": "q37_launch_one",
           "number": 37,
           "type": "multi",
+          "helpText": "Choose up to 3.",
+          "maxSelections": 3,
           "text": "If Orbitaly could launch only a subset of features initially, what they should be?",
           "options": [
             { "value": "future_fit_quiz", "label": "Future Fit / career quiz" },
