@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import Logo from '../../../components/Logo'
+
+const SITE_URL = 'https://www.orbitaly.in/'
 
 export default function Complete({ survey, submissionId, submittedAt, onStartNew }) {
   const submittedOn =
@@ -45,13 +47,23 @@ export default function Complete({ survey, submissionId, submittedAt, onStartNew
           </p>
         )}
 
+        {/* The onward step. They've just told us what they need; this is the
+            one place we get to show them what we're building with it. */}
+        <a
+          href={SITE_URL}
+          className="mt-10 flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-4 text-[15px] font-bold text-white transition-transform hover:scale-[1.01]"
+        >
+          Explore Orbitaly
+          <ArrowRight className="h-4 w-4" />
+        </a>
+
         {/* Survey sessions happen on shared campus machines. Without a hand-over
             the next student in the queue lands on someone else's confirmation. */}
         {onStartNew && (
           <button
             type="button"
             onClick={onStartNew}
-            className="mt-10 text-sm font-semibold text-ink/45 underline underline-offset-4 transition-colors hover:text-ink"
+            className="mt-6 text-sm font-semibold text-ink/45 underline underline-offset-4 transition-colors hover:text-ink"
           >
             Not you? Start a new response
           </button>
