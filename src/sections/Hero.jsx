@@ -1,102 +1,97 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { HERO_VARIANTS, ACTIVE_HERO, NOISE } from '../content/home'
+import { HERO_VARIANTS, ACTIVE_HERO, PREVIEW } from '../content/home'
 import { SURVEY_PATH } from '../content/site'
 
 /**
- * The signature.
+ * The product, in one screen.
  *
- * Everything a young person is holding at once, set dense and small — and one
- * line resolving out of it. §3 is that students have more information than
- * ever and less direction than ever; §26 is that Orbitaly wins by being where
- * you go when the question is "what should I do next?". So the hero shows the
- * thesis rather than asserting it.
+ * A visitor should understand Orbitaly before reading a word of body copy:
+ * it knows where you are, it gives you one next action, and Learn · Earn ·
+ * Grow is the shape of what sits behind it. Everything else on the page
+ * elaborates on this panel.
+ *
+ * Marked illustrative — it previews an idea, not a running product.
  */
-function NoiseField() {
+function Preview() {
   const reduce = useReducedMotion()
-  const resolvedIndex = NOISE.findIndex((n) => typeof n === 'object')
+  const rise = (delay) => ({
+    initial: reduce ? false : { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, delay: reduce ? 0 : delay },
+  })
 
   return (
-    <div className="relative">
-      <div
-        className="relative overflow-hidden rounded-sm bg-brand-deep px-7 py-9 sm:px-9 sm:py-11"
-        role="img"
-        aria-label="A dense field of the questions students face, with one resolved into a next step"
-      >
-        {/* A single faint arc — the orbit in the name, used as structure rather
-            than as a decorative blob. */}
+    <div>
+      <div className="relative overflow-hidden rounded-md bg-brand-deep p-6 shadow-[0_30px_70px_-40px_rgba(10,36,114,0.7)] sm:p-8">
+        {/* The orbit in the name, used as structure rather than as a glow. */}
         <svg
           viewBox="0 0 400 400"
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 -top-28 h-[420px] w-[420px] text-white/[0.07]"
+          className="pointer-events-none absolute -right-32 -top-32 h-[400px] w-[400px] text-white/[0.06]"
         >
-          <circle cx="200" cy="200" r="150" fill="none" stroke="currentColor" strokeWidth="1" />
-          <circle cx="200" cy="200" r="196" fill="none" stroke="currentColor" strokeWidth="1" />
+          <circle cx="200" cy="200" r="140" fill="none" stroke="currentColor" strokeWidth="1" />
+          <circle cx="200" cy="200" r="190" fill="none" stroke="currentColor" strokeWidth="1" />
         </svg>
 
-        <p className="relative font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-          What you're holding right now
-        </p>
+        {/* Who it's talking to — the personalisation is the premise. */}
+        <motion.div {...rise(0.05)} className="relative">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
+            Your dashboard
+          </p>
+          <p className="mt-3 font-display text-[19px] font-bold tracking-[-0.02em] text-white">
+            {PREVIEW.who}
+          </p>
+          <p className="mt-1 text-[13px] text-white/50">{PREVIEW.context}</p>
+        </motion.div>
 
-        <ul className="relative mt-6 flex flex-col gap-[7px]">
-          {NOISE.map((item, i) => {
-            const isResolved = typeof item === 'object'
-            const text = isResolved ? item.text : item
+        {/* The single next action. This is the whole proposition, so it is the
+            only element on the panel that carries the accent. */}
+        <motion.div
+          {...rise(0.25)}
+          className="relative mt-6 rounded-sm border border-brand-bright/40 bg-brand-bright/[0.09] p-5"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand-bright">
+            Do this next
+          </span>
+          <p className="mt-3 font-display text-[19px] font-bold leading-[1.25] tracking-[-0.02em] text-white sm:text-[21px]">
+            {PREVIEW.next.label}
+          </p>
+          <p className="mt-3 text-[13px] leading-relaxed text-white/55">
+            {PREVIEW.next.reason}
+          </p>
+          <div className="mt-4 flex items-center justify-between border-t border-white/15 pt-3.5">
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-white/45">
+              {PREVIEW.next.meta}
+            </span>
+            <ArrowRight className="h-4 w-4 text-brand-bright" />
+          </div>
+        </motion.div>
 
-            if (isResolved) {
-              return (
-                <li key={text} className="my-3">
-                  <motion.div
-                    initial={reduce ? false : { opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: reduce ? 0 : 1.15 }}
-                    className="flex items-center gap-4 border-y border-brand-bright/35 bg-brand-bright/[0.09] px-4 py-4"
-                  >
-                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand-bright">
-                      Next
-                    </span>
-                    <span className="font-display text-[17px] font-semibold tracking-tight text-white sm:text-[19px]">
-                      {text}
-                    </span>
-                  </motion.div>
-                </li>
-              )
-            }
-
-            return (
-              <motion.li
-                key={text}
-                initial={reduce ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: 0.3,
-                  delay: reduce ? 0 : 0.15 + i * 0.028,
-                }}
-                className="font-mono text-[12px] leading-snug text-white/30"
-              >
-                {text}
-              </motion.li>
-            )
-          })}
-        </ul>
-
-        {/* The resolved line is the point, so the field below it dims toward
-            the edge rather than running to a hard stop. */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-deep to-transparent"
-          aria-hidden="true"
-        />
+        {/* And the three pillars, so the model is legible without explanation. */}
+        <motion.ul {...rise(0.4)} className="relative mt-6 border-t border-white/12">
+          {PREVIEW.queue.map((q) => (
+            <li
+              key={q.pillar}
+              className="flex items-center gap-4 border-b border-white/[0.08] py-3"
+            >
+              <span className="w-[6ch] shrink-0 font-mono text-[10px] uppercase tracking-[0.12em] text-white/45">
+                {q.pillar}
+              </span>
+              <span className="flex-1 text-[13.5px] text-white/75">{q.item}</span>
+              <span className="flex shrink-0 items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white/40">
+                {q.state === 'Done' && <Check className="h-3 w-3" />}
+                {q.state}
+              </span>
+            </li>
+          ))}
+        </motion.ul>
       </div>
 
       <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
-        Illustrative · {NOISE.length - 1} of the questions we hear
+        Illustrative interface
       </p>
-
-      {/* Screen readers get the list as text; the index above is decorative. */}
-      <span className="sr-only">
-        Resolved next step: {NOISE[resolvedIndex].text}
-      </span>
     </div>
   )
 }
@@ -106,7 +101,7 @@ export default function Hero() {
 
   return (
     <section className="border-b border-rule bg-paper">
-      <div className="mx-auto grid max-w-[1240px] items-center gap-x-20 gap-y-14 px-6 pb-24 pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-32 lg:pt-40">
+      <div className="mx-auto grid max-w-[1240px] items-center gap-x-20 gap-y-14 px-6 pb-24 pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-28 lg:pt-36">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
             {v.eyebrow}
@@ -118,31 +113,30 @@ export default function Hero() {
             <span className="text-brand">{v.headlineAccent}</span>
           </h1>
 
-          <p className="mt-8 max-w-[46ch] text-[17px] leading-[1.65] text-ink-2">{v.sub}</p>
+          <p className="mt-7 max-w-[44ch] text-[18px] leading-[1.6] text-ink-2">{v.sub}</p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               to={SURVEY_PATH}
-              className="group inline-flex items-center gap-2.5 rounded-sm bg-brand px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-brand-deep"
+              className="group inline-flex w-full items-center justify-center gap-2.5 rounded-sm bg-brand px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
             >
               Take the student survey
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <a
               href="#roadmap"
-              className="inline-flex items-center rounded-sm border border-rule px-7 py-4 text-[15px] font-semibold text-ink transition-colors hover:border-ink hover:bg-paper-2"
+              className="inline-flex w-full items-center justify-center rounded-sm border border-rule px-7 py-4 text-[15px] font-semibold text-ink transition-colors hover:border-ink hover:bg-paper-2 sm:w-auto"
             >
               What we're building
             </a>
           </div>
 
-          <p className="mt-8 max-w-[44ch] border-l-2 border-rule pl-4 text-[13.5px] leading-relaxed text-ink-3">
-            Orbitaly is being built now. The research is open, and it decides what ships
-            first — so the survey is not a waiting list, it's the input.
+          <p className="mt-8 font-mono text-[11px] leading-[1.7] tracking-[0.02em] text-ink-3">
+            Being built now · the research decides what ships first
           </p>
         </div>
 
-        <NoiseField />
+        <Preview />
       </div>
     </section>
   )

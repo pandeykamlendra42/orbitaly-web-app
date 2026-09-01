@@ -17,7 +17,7 @@ export const HERO_VARIANTS = {
     eyebrow: 'Learn · Earn · Grow',
     headline: "You don't need more options.",
     headlineAccent: 'You need the next step.',
-    sub: 'Orbitaly works out where you actually are, then points at the one thing worth doing next — a course, a counsellor, an opportunity, or a way to pay for it.',
+    sub: 'Orbitaly works out where you are, then shows you the one thing worth doing next.',
   },
   // High-intent alternative — §13's "primary high-intent monetisable hook".
   journeyPlanner: {
@@ -31,38 +31,30 @@ export const HERO_VARIANTS = {
 export const ACTIVE_HERO = 'direction'
 
 /**
- * The noise, in a student's own words. This is the hero's signature device:
- * everything a young person is holding at once, rendered dense and small —
- * with one line resolved out of it.
+ * The hero preview.
  *
- * `resolved` marks the line that lifts out. Everything else stays background.
+ * The whole product in one screen: who you are, the single next action, and
+ * the three pillars queued behind it. It has to teach Learn · Earn · Grow at a
+ * glance — a visitor should not have to read a paragraph to understand what
+ * Orbitaly is.
+ *
+ * Illustrative, and labelled as such on the page. No figure here is a claim
+ * about real users, and nothing states traction.
  */
-export const NOISE = [
-  'B.Tech or BSc?',
-  'Is a ₹40 lakh loan sane?',
-  'IELTS or TOEFL',
-  'Manchester or Toronto',
-  'Should I take a drop year',
-  'Which branch has scope',
-  'Private college worth it?',
-  'CAT or placements',
-  'Do I need a counsellor',
-  'MS after B.Tech?',
-  { text: 'What should I actually do next?', resolved: true },
-  'Government job or private',
-  'Is my CV the problem',
-  'Can we afford abroad',
-  'Scholarship deadlines',
-  'PG now or work first',
-  'Which agent is honest',
-  'Do internships matter',
-  'Commerce or science',
-  'Will AI take this job',
-  'Hostel or PG',
-  'Education loan or gold loan',
-  'Is design a real career',
-  'What if I pick wrong',
-]
+export const PREVIEW = {
+  who: 'Aarav',
+  context: 'Engineering · Year 2 · considering PG abroad',
+  next: {
+    label: 'Work out what a PG abroad would actually cost',
+    meta: 'About 6 minutes',
+    reason: 'You said funding is the thing most likely to stop you',
+  },
+  queue: [
+    { pillar: 'Learn', item: 'Career direction · Data & analytics', state: 'Done' },
+    { pillar: 'Earn', item: '3 roles match your profile', state: 'Ready' },
+    { pillar: 'Grow', item: 'First savings goal', state: 'Later' },
+  ],
+}
 
 /* ------------------------------ problems -------------------------------- */
 
