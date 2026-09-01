@@ -1,20 +1,11 @@
-/* global __SHOW_PROTOTYPE__ */
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Suspense, lazy, useEffect } from 'react'
-import { BasketProvider } from './context/BasketContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Landing from './pages/Landing'
+import Trust from './pages/Trust'
 import { SURVEY_ROUTES } from './modules/survey/routes'
 import { SURVEY_ADMIN_ROUTES } from './modules/survey-admin/routes'
-
-// `__SHOW_PROTOTYPE__` is a build-time literal, so on the public build these
-// ternaries collapse to `null` and the dynamic imports become unreachable —
-// the demo pages and their mock data are never emitted. See src/config.js.
-const Marketplace = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Marketplace')) : null
-const InstituteDetails = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/InstituteDetails')) : null
-const Basket = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Basket')) : null
-const Eligibility = __SHOW_PROTOTYPE__ ? lazy(() => import('./pages/Eligibility')) : null
 
 // The survey is a self-contained module with its own chrome, and it ships on the
 // public build — the college cohort needs to reach it directly. Lazy so its
@@ -25,11 +16,21 @@ const SurveyPage = lazy(() => import('./modules/survey/SurveyPage'))
 // and because no public visitor should ever download it.
 const SurveyAdminPage = lazy(() => import('./modules/survey-admin/AdminPage'))
 
+// Reset scroll between pages — but the nav links to in-page anchors as "/#learn",
+// so a hash has to win, otherwise arriving from /trust lands at the top instead
+// of the section that was asked for.
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        return
+      }
+    }
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash])
   return null
 }
 
@@ -45,33 +46,24 @@ function MarketingChrome({ children }) {
 
 export default function App() {
   return (
-    <BasketProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <MarketingChrome>
-          <Navbar />
-        </MarketingChrome>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/student-survey-v1" element={<SurveyPage />} />
-            <Route path="/survey-analytics" element={<SurveyAdminPage />} />
-            {__SHOW_PROTOTYPE__ && (
-              <>
-                <Route path="/marketplace" element={<Marketplace />} />
-                <Route path="/institute/:id" element={<InstituteDetails />} />
-                <Route path="/basket" element={<Basket />} />
-                <Route path="/eligibility" element={<Eligibility />} />
-              </>
-            )}
-            {/* Anything else — including old demo links people may have saved. */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-        <MarketingChrome>
-          <Footer />
-        </MarketingChrome>
-      </BrowserRouter>
-    </BasketProvider>
+    <BrowserRouter>
+      <ScrollToTop />
+      <MarketingChrome>
+        <Navbar />
+      </MarketingChrome>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/trust" element={<Trust />} />
+          <Route path="/student-survey-v1" element={<SurveyPage />} />
+          <Route path="/survey-analytics" element={<SurveyAdminPage />} />
+          {/* Anything else — including old demo links people may have saved. */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+      <MarketingChrome>
+        <Footer />
+      </MarketingChrome>
+    </BrowserRouter>
   )
 }

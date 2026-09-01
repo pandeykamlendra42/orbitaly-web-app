@@ -1,11 +1,47 @@
 @import "tailwindcss";
 
 @theme {
+  /* Display: tight, engineered, confident at large sizes. Body: Inter, which
+     is a workhorse text face here rather than the display face. Mono is not
+     decoration — this brand's native artifact is a fee schedule, so amounts,
+     statuses and labels are genuinely tabular data. */
+  --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  /* Ledger face — amounts, payment cycles and routing states are tabular data. */
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /* The palette is derived from the brand mark itself — #0A2472 → #1565C0 →
+     #00AEEF — rather than an unrelated accent. Navy is a dominant field
+     colour, not a hairline. Cyan is a scalpel: state, emphasis, one line at a
+     time. Neutrals carry a blue bias so nothing reads as stock grey. */
+  --color-paper: #ffffff;
+  --color-paper-2: #f4f6fa;
+  --color-paper-3: #e9eef7;
+
+  /* `ink` is shared with the survey and admin modules (245 uses), so it keeps
+     its original value — those modules are not part of this redesign. */
   --color-ink: #0f0e1a;
+  --color-ink-2: #4a5678;
+  --color-ink-3: #8a94b0;
+
+  --color-rule: #e1e7f2;
+  --color-rule-2: #eef2f9;
+
+  --color-brand: #0d2b8e;
+  --color-brand-deep: #0a2472;
+  --color-brand-bright: #00aeef;
+  --color-brand-wash: #eaf0fd;
+
+  /* Status, kept deliberately muted and away from the accent hue so a state
+     never competes with an emphasis. */
+  --color-state-live: #0f6b4a;
+  --color-state-build: #8a5a0b;
+
+  /* ----------------------------------------------------------------------
+     Survey and admin modules only.
+     src/modules/survey/** and src/modules/survey-admin/** are live, are not
+     part of the marketing redesign, and style themselves from this ramp.
+     Do not remove or repoint these without converting those modules first.
+     ---------------------------------------------------------------------- */
   --color-ink-soft: #1b1a2e;
   --color-orbit-50: #eef2ff;
   --color-orbit-100: #e0e7ff;
@@ -25,8 +61,27 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Quality floor: honour the OS "reduce motion" setting for every animation,
-   including the scroll-driven parallax layers. */
+body {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  background: #ffffff;
+  color: #0f0e1a;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Amounts, counts and schedule rows line up in columns everywhere on this
+   site, so tabular figures are the default for the mono face. */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: #0d2b8e;
+  color: #ffffff;
+}
+
+/* Quality floor: honour the OS "reduce motion" setting for every animation. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -40,32 +95,15 @@ html {
   }
 }
 
-/* Visible keyboard focus on the dark sections, where the default ring vanishes. */
+/* Brand blue rather than the cyan accent: cyan on white does not carry enough
+   contrast for a focus indicator. */
 :focus-visible {
-  outline: 2px solid #818cf8;
+  outline: 2px solid #0d2b8e;
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
-body {
-  font-family: var(--font-sans);
-  font-optical-sizing: auto;
-  background: #fff;
-  color: #0f0e1a;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: #c7d2fe;
-}
-
-/* Revolut-style thin scrollbar for filter rails */
-.scroll-thin::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
-}
-.scroll-thin::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
-  border-radius: 4px;
+/* Focus on the navy fields, where cyan-on-navy loses too much contrast. */
+.on-navy :focus-visible {
+  outline-color: #ffffff;
 }
