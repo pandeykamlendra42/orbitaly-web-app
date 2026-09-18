@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
 import { Reveal, SectionHead } from '../components/ui'
 import StatusLabel from '../components/StatusLabel'
 import EnquiryForm from '../components/EnquiryForm'
 import { EXPERT_SIGNALS } from '../content/home'
 import { LEADS_ENABLED } from '../lib/leads'
-import { SURVEY_PATH } from '../content/site'
+import { CONTACT_MAILTO } from '../content/site'
 
 export default function ExpertNetwork() {
   return (
@@ -67,14 +66,14 @@ export default function ExpertNetwork() {
                     <p className="text-[14.5px] leading-[1.65] text-ink-2">
                       Registration opens shortly. In the meantime, the student research is
                       what shapes the network — including how counsellors get matched and
-                      what students say they would pay for.
+                      what students say they would pay for. Want to be on the list early?
                     </p>
-                    <Link
-                      to={SURVEY_PATH}
+                    <a
+                      href={CONTACT_MAILTO}
                       className="mt-5 inline-flex rounded-sm border border-ink px-6 py-3 text-[14px] font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
                     >
-                      See the research
-                    </Link>
+                      Get in touch
+                    </a>
                   </div>
                 )}
               </div>

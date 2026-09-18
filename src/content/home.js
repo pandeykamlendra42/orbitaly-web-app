@@ -7,6 +7,8 @@
  * redeploy of the section components.
  */
 
+import { CONTACT_MAILTO } from './site'
+
 /* ------------------------------- hero ---------------------------------- */
 
 export const HERO_VARIANTS = {
@@ -144,6 +146,24 @@ export const OVERSEAS_STEPS = [
   'Funding gap',
 ]
 
+/* --------------------------- lending partners --------------------------- */
+
+/**
+ * Licensed lenders we route to. Each entry is the whole claim we make about the
+ * relationship — the band renders exactly this, so nothing gets embellished in
+ * JSX. `logo` is resolved in the section from src/assets; keep the logos as the
+ * partner publishes them, not recoloured to ours.
+ */
+export const LENDING_PARTNERS = [
+  {
+    id: 'icici',
+    name: 'ICICI Bank',
+    kind: 'Scheduled commercial bank · RBI regulated',
+    role: 'Education loans, India and overseas',
+    href: 'https://www.icicibank.com/',
+  },
+]
+
 /* ------------------------------- roadmap -------------------------------- */
 
 /**
@@ -154,10 +174,10 @@ export const OVERSEAS_STEPS = [
  */
 export const ROADMAP = [
   {
-    state: 'live',
+    state: 'done',
     title: 'Student discovery research',
-    body: 'What students actually struggle with, what they have already paid to solve, and what they would use. Open now — and it decides what we build first.',
-    action: { label: 'Take the survey', to: '/student-survey-v1' },
+    body: 'What students actually struggle with, what they have already paid to solve, and what they would use. The survey has closed — the responses decide what we build first.',
+    action: { label: 'Get in touch', href: CONTACT_MAILTO },
   },
   {
     state: 'building',

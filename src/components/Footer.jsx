@@ -5,7 +5,7 @@ import {
   REGISTERED_ADDRESS,
   CIN,
   CONTACT_EMAIL,
-  SURVEY_PATH,
+  CONTACT_MAILTO,
 } from '../content/site'
 
 // Only destinations that exist. Links to pages we haven't built are worse than
@@ -76,21 +76,13 @@ export default function Footer() {
                   Trust &amp; disclosures
                 </Link>
               </li>
-              <li>
-                <Link
-                  to={SURVEY_PATH}
-                  className="text-[14px] text-white/70 transition-colors hover:text-white"
-                >
-                  Student research
-                </Link>
-              </li>
               {CONTACT_EMAIL && (
                 <li>
                   <a
-                    href={`mailto:${CONTACT_EMAIL}`}
+                    href={CONTACT_MAILTO}
                     className="text-[14px] text-white/70 transition-colors hover:text-white"
                   >
-                    Contact
+                    Get in touch
                   </a>
                 </li>
               )}

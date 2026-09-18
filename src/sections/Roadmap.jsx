@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { Reveal, SectionHead } from '../components/ui'
 import StatusLabel from '../components/StatusLabel'
 import { ROADMAP } from '../content/home'
@@ -42,13 +41,13 @@ export default function Roadmap() {
                 </div>
 
                 {r.action ? (
-                  <Link
-                    to={r.action.to}
+                  <a
+                    href={r.action.href}
                     className="group inline-flex items-center gap-2 justify-self-start rounded-sm bg-brand px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-brand-deep lg:justify-self-end"
                   >
                     {r.action.label}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  </a>
                 ) : (
                   <span aria-hidden="true" />
                 )}
@@ -60,7 +59,7 @@ export default function Roadmap() {
         <Reveal>
           <p className="mt-8 max-w-[62ch] text-[14px] leading-relaxed text-ink-3">
             Sequencing, not delivery dates. What we build after the planner depends partly on
-            what the research says — which is the point of running it.
+            what the research said — which was the point of running it.
           </p>
         </Reveal>
       </div>

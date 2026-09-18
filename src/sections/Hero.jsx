@@ -1,8 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { HERO_VARIANTS, ACTIVE_HERO, PREVIEW } from '../content/home'
-import { SURVEY_PATH } from '../content/site'
+import { CONTACT_MAILTO } from '../content/site'
 
 /**
  * The product, in one screen.
@@ -116,13 +115,13 @@ export default function Hero() {
           <p className="mt-7 max-w-[44ch] text-[18px] leading-[1.6] text-ink-2">{v.sub}</p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Link
-              to={SURVEY_PATH}
+            <a
+              href={CONTACT_MAILTO}
               className="group inline-flex w-full items-center justify-center gap-2.5 rounded-sm bg-brand px-7 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
             >
-              Take the student survey
+              Get in touch
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </a>
             <a
               href="#roadmap"
               className="inline-flex w-full items-center justify-center rounded-sm border border-rule px-7 py-4 text-[15px] font-semibold text-ink transition-colors hover:border-ink hover:bg-paper-2 sm:w-auto"

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Logo from './Logo'
-import { NAV_LINKS, SURVEY_PATH } from '../content/site'
+import { NAV_LINKS, CONTACT_MAILTO } from '../content/site'
 
 export default function Navbar() {
   const { pathname } = useLocation()
@@ -45,12 +45,12 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link
-            to={SURVEY_PATH}
+          <a
+            href={CONTACT_MAILTO}
             className="hidden rounded-sm bg-brand px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-brand-deep sm:block"
           >
-            Take the survey
-          </Link>
+            Get in touch
+          </a>
 
           <button
             onClick={() => setOpen(!open)}
@@ -82,12 +82,13 @@ export default function Navbar() {
                   {l.label}
                 </a>
               ))}
-              <Link
-                to={SURVEY_PATH}
+              <a
+                href={CONTACT_MAILTO}
+                onClick={() => setOpen(false)}
                 className="mt-4 mb-2 block rounded-sm bg-brand px-5 py-3.5 text-center text-[15px] font-semibold text-white"
               >
-                Take the survey
-              </Link>
+                Get in touch
+              </a>
             </div>
           </motion.div>
         )}

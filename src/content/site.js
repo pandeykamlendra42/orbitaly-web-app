@@ -13,12 +13,15 @@ export const LEGAL_ENTITY = 'Orbitaly One Technologies Private Limited'
 export const REGISTERED_ADDRESS = ''
 export const CIN = ''
 
-// TODO(orbitaly): set the partnerships inbox. While this is empty every
-// "talk to us" affordance falls back to the on-page enquiry form.
-export const CONTACT_EMAIL = ''
+// The shared inbox. Every "get in touch" affordance on the site opens a draft
+// to this address; while LEADS_ENABLED is on, the partner and counsellor doors
+// use the on-page enquiry form instead.
+export const CONTACT_EMAIL = 'contactus@orbitaly.in'
+export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`
 
-// The one thing on this site a visitor can actually complete today.
-export const SURVEY_PATH = '/student-survey-v1'
+// The student survey has closed. The route is commented out in App.jsx; keep
+// the path here so it can be switched back on for a future cohort.
+// export const SURVEY_PATH = '/student-survey-v1'
 
 export const NAV_LINKS = [
   { label: 'Learn', href: '/#learn' },

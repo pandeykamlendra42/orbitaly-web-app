@@ -9,6 +9,7 @@
  * information, and it should not compete with the accent for attention.
  */
 const STATES = {
+  done: { label: 'Complete', dot: 'bg-ink', text: 'text-ink' },
   live: { label: 'Live now', dot: 'bg-state-live', text: 'text-state-live' },
   building: { label: 'In build', dot: 'bg-state-build', text: 'text-state-build' },
   partners: { label: 'Onboarding partners', dot: 'bg-brand', text: 'text-brand' },
@@ -16,6 +17,7 @@ const STATES = {
 }
 
 const ON_NAVY = {
+  done: 'text-white',
   live: 'text-emerald-300',
   building: 'text-amber-300',
   partners: 'text-brand-bright',
@@ -23,6 +25,7 @@ const ON_NAVY = {
 }
 
 const ON_NAVY_DOT = {
+  done: 'bg-white',
   live: 'bg-emerald-300',
   building: 'bg-amber-300',
   partners: 'bg-brand-bright',

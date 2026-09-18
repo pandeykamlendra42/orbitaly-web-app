@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '../components/ui'
 import { TRUST_POINTS } from '../content/home'
-import { SURVEY_PATH } from '../content/site'
+import { CONTACT_MAILTO } from '../content/site'
 
 export default function Trust() {
   return (
@@ -51,13 +50,13 @@ export default function Trust() {
               you have taken the student survey and want your responses removed in the
               meantime, tell us and we'll remove them.
             </p>
-            <Link
-              to={SURVEY_PATH}
+            <a
+              href={`${CONTACT_MAILTO}?subject=${encodeURIComponent('Remove my survey responses')}`}
               className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-brand"
             >
-              The research this refers to
+              Get in touch
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </a>
           </div>
         </Reveal>
       </div>

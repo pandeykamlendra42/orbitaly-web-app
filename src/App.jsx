@@ -7,10 +7,11 @@ import Trust from './pages/Trust'
 import { SURVEY_ROUTES } from './modules/survey/routes'
 import { SURVEY_ADMIN_ROUTES } from './modules/survey-admin/routes'
 
-// The survey is a self-contained module with its own chrome, and it ships on the
-// public build — the college cohort needs to reach it directly. Lazy so its
-// questionnaire JSON stays out of the landing-page bundle.
-const SurveyPage = lazy(() => import('./modules/survey/SurveyPage'))
+// The survey is a self-contained module with its own chrome, and it shipped on
+// the public build while the college cohort was answering it. The research has
+// now closed, so the route is switched off below — the module stays in the tree
+// so it can be re-enabled for a future cohort.
+// const SurveyPage = lazy(() => import('./modules/survey/SurveyPage'))
 
 // Internal analytics over the read-only admin API. Lazy for the same reason,
 // and because no public visitor should ever download it.
@@ -55,7 +56,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/trust" element={<Trust />} />
-          <Route path="/student-survey-v1" element={<SurveyPage />} />
+          {/* Survey closed — see the note on SurveyPage above. */}
+          {/* <Route path="/student-survey-v1" element={<SurveyPage />} /> */}
           <Route path="/survey-analytics" element={<SurveyAdminPage />} />
           {/* Anything else — including old demo links people may have saved. */}
           <Route path="*" element={<Navigate to="/" replace />} />

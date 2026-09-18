@@ -1,15 +1,13 @@
 import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { Reveal, SectionHead } from '../components/ui'
 import StatusLabel from '../components/StatusLabel'
 import EnquiryForm from '../components/EnquiryForm'
 import { LEADS_ENABLED } from '../lib/leads'
-import { SURVEY_PATH, CONTACT_EMAIL } from '../content/site'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../content/site'
 
 /* Replaces the single "Partner With Us" button that was the only call to
    action on the old site, and pointed at an empty mailto. Three audiences —
-   and only the student door is genuinely open today, so only it is styled as
-   the primary action. */
+   the student door was the survey while it ran; now it's the shared inbox. */
 export default function ThreeDoors() {
   return (
     <section id="contact" className="scroll-mt-20 border-b border-rule bg-paper py-24 lg:py-28">
@@ -21,29 +19,27 @@ export default function ThreeDoors() {
         <div className="mt-16 grid gap-px border border-rule bg-rule lg:grid-cols-3">
           <Reveal>
             <div className="flex h-full flex-col bg-brand p-8 lg:p-9">
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/60">
-                  Students &amp; parents
-                </span>
-                <StatusLabel state="live" onNavy />
-              </div>
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/60">
+                Students &amp; parents
+              </span>
 
               <h3 className="mt-6 font-display text-[22px] font-bold leading-[1.2] tracking-[-0.025em] text-white">
                 Tell us what you're actually stuck on.
               </h3>
 
               <p className="mt-4 flex-1 text-[15px] leading-[1.65] text-white/70">
-                Eight to ten minutes. It's genuinely research rather than a sales pitch, and
-                honest criticism is more useful to us than polite approval.
+                The student survey has closed and the responses are being worked through.
+                If you have a question, a story, or criticism, write to us — honest
+                criticism is more useful to us than polite approval.
               </p>
 
-              <Link
-                to={SURVEY_PATH}
+              <a
+                href={CONTACT_MAILTO}
                 className="group mt-8 inline-flex items-center justify-between gap-3 rounded-sm bg-white px-6 py-4 text-[15px] font-semibold text-brand transition-colors hover:bg-paper-2"
               >
-                Take the survey
+                Get in touch
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </a>
             </div>
           </Reveal>
 
