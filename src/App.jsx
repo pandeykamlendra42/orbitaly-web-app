@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Landing from './pages/Landing'
 import Trust from './pages/Trust'
+import Privacy from './pages/Privacy'
 import { SURVEY_ROUTES } from './modules/survey/routes'
 import { SURVEY_ADMIN_ROUTES } from './modules/survey-admin/routes'
 
@@ -56,6 +57,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/trust" element={<Trust />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          {/* The privacy policy PDF cites this URL for the lender list. */}
+          <Route path="/Lending_Partners" element={<Navigate to="/#lenders" replace />} />
           {/* Survey closed — see the note on SurveyPage above. */}
           {/* <Route path="/student-survey-v1" element={<SurveyPage />} /> */}
           <Route path="/survey-analytics" element={<SurveyAdminPage />} />

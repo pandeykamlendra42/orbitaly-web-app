@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '../components/ui'
 import { TRUST_POINTS } from '../content/home'
@@ -45,10 +46,14 @@ export default function Trust() {
               What this page doesn't cover yet
             </h2>
             <p className="mt-4 text-[15px] leading-[1.7] text-ink-2">
-              Our privacy policy, terms of use and grievance process are being drawn up with
-              counsel and will be published here before the first product journey opens. If
-              you have taken the student survey and want your responses removed in the
-              meantime, tell us and we'll remove them.
+              Our{' '}
+              <Link to="/privacy-policy" className="text-brand underline underline-offset-2">
+                privacy policy
+              </Link>{' '}
+              sets out how we handle personal data and how to raise a grievance. Our terms of
+              use are being drawn up with counsel and will be published here before the first
+              product journey opens. If you have taken the student survey and want your
+              responses removed, tell us and we'll remove them.
             </p>
             <a
               href={`${CONTACT_MAILTO}?subject=${encodeURIComponent('Remove my survey responses')}`}

@@ -76,6 +76,14 @@ export default function Footer() {
                   Trust &amp; disclosures
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/privacy-policy"
+                  className="text-[14px] text-white/70 transition-colors hover:text-white"
+                >
+                  Privacy policy
+                </Link>
+              </li>
               {CONTACT_EMAIL && (
                 <li>
                   <a
